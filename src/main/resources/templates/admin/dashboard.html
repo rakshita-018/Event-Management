@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="admin/adminBase::Layout(~{::section})">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+
+	<section th:fragment="Layout">
+
+        <div class="container mt-4">
+            <h1>Admin Dashboard</h1>
+
+            <div class="row">
+                <!-- Total Users -->
+                <div class="col-md-4">
+                    <div class="card text-white bg-primary mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Users</h5>
+                            <p class="card-text" th:text="${totalUsers}">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Locked Accounts -->
+                <div class="col-md-4">
+                    <div class="card text-white bg-danger mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Locked Accounts</h5>
+                            <p class="card-text" th:text="${lockedAccounts}">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upcoming Events -->
+                <div class="col-md-4">
+                    <div class="card text-white bg-success mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Events</h5>
+                            <p class="card-text" th:text="${totalEvents}">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other management options -->
+            <div class="row mt-4">
+                <div class="col-md-3">
+                    <a href="#" th:href="@{/admin/users}" class="btn btn-outline-primary btn-lg btn-block">Manage Users</a>
+                </div>
+				<div class="col-md-3">
+				    <a href="#" th:href="@{/admin/addUser}" class="btn btn-outline-primary btn-lg btn-block">Add User</a>
+				</div>
+                <div class="col-md-3">
+                    <a href="#" th:href="@{/admin/eventList}" class="btn btn-outline-success btn-lg btn-block">Manage Events</a>
+                </div>
+				<div class="col-md-3">
+				    <a href="#" th:href="@{/admin/addEvent}" class="btn btn-outline-success btn-lg btn-block">Add Event</a>
+				</div>
+
+            </div>
+        </div>
+
+    </section>
+</body>
+
+</html>

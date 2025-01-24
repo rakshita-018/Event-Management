@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::Layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Cards</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <section>
+		<!-- Check if there's a flash attribute for the message -->
+		<div th:if="${session.msg}" class="alert alert-danger">
+		   <p th:text="${session.msg}"></p>
+		</div>
+
+        <div class="container mt-5">
+            <h1 class="mb-5 text-center">Events Cards</h1>
+			
+            <!-- Cultural Events Section -->
+            <h2 class="mb-4">Cultural Events</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4" th:each="event : ${culturalEvents}">
+                    <div class="card" style="height: 500px;">
+                        <div class="event-image card-img-top" 
+                             th:style="'background-image: url(' + @{${event.photoUrl}} + '); height: 300px; background-position: center;'">
+                        </div>
+                        <div class="card-body" style=" height: 400px ;overflow-y:scroll;">
+                            <h2 class="card-title" th:text="${event.title}">Event Title</h2>
+                            <p>
+                                <strong>Venue:</strong> 
+                                <span th:text="${event.eventDates[0].location}">Location</span>
+                            </p>
+                            <p>
+                                <strong>Date:</strong> 
+                                <span th:text="${event.eventDates[0].startDate}">Location</span>
+                            </p>
+							<p>
+							    <strong>Team Size:</strong> 
+							    <span th:text="${event.teamSize}">Team Size</span>
+							</p>
+                            <div class="rules">
+                                <h5>Description</h5>
+                                <p class="card-text" th:text="${event.description}">Event Description</p>
+                            </div>
+                            <div class="register-btn mt-2">
+                                <form th:action="@{/user/checkTeamSize}" method="post">
+                                    <input type="hidden" name="eventId" th:value="${event.id}" />
+                                    <input type="hidden" name="teamSize" th:value="${event.teamSize}" />
+                                    <button type="submit" class="btn btn-primary">Register</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical Events Section -->
+            <h2 class="mt-5 mb-4">Technical Events</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4" th:each="event : ${technicalEvents}">
+                    <div class="card" style="height: 500px;">
+                        <div class="event-image card-img-top" 
+							th:style="'background-image: url(' + @{${event.photoUrl}} + '); height: 300px; background-position: center;'">
+                        </div>
+                        <div class="card-body" style=" height: 400px ;overflow-y:scroll;">
+                            <h2 class="card-title" th:text="${event.title}">Event Title</h2>
+                            <p>
+                                <strong>Venue:</strong> 
+                                <span th:text="${event.eventDates[0].location}">Location</span>
+                            </p>
+                            <p>
+                                <strong>Date:</strong> 
+                                <span th:text="${event.eventDates[0].startDate}">Location</span>
+                            </p>
+							<p>
+							    <strong>Team Size:</strong> 
+							    <span th:text="${event.teamSize}">Team Size</span>
+							</p>
+                            <div class="rules">
+                                <h5>Description</h5>
+                                <p class="card-text" th:text="${event.description}">Event Description</p>
+                            </div>
+                            <div class="register-btn mt-2">
+                                <form th:action="@{/user/checkTeamSize}" method="post">
+                                    <input type="hidden" name="eventId" th:value="${event.id}" />
+                                    <input type="hidden" name="teamSize" th:value="${event.teamSize}" />
+                                    <button type="submit" class="btn btn-primary">Register</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sports Events Section -->
+            <h2 class="mt-5 mb-4">Sports Events</h2>
+            <div class="row">
+               <div class="col-md-4 mb-4" th:each="event : ${sportsEvents}">
+                   <div class="card" style="height: 500px;">
+                       <div class="event-image card-img-top" 
+                            th:style="'background-image: url(' + @{${event.photoUrl}} + '); height: 300px; background-position: center;'">
+                       </div>
+                       <div class="card-body" style=" height: 400px ;overflow-y:scroll;">
+                           <h2 class="card-title" th:text="${event.title}">Event Title</h2>
+                           <p>
+                               <strong>Venue:</strong> 
+                               <span th:text="${event.eventDates[0].location}">Location</span>
+                           </p>
+                           <p>
+                               <strong>Date:</strong> 
+                               <span th:text="${event.eventDates[0].startDate}">Location</span>
+                           </p>
+						   <p>
+						       <strong>Team Size:</strong> 
+						       <span th:text="${event.teamSize}">Team Size</span>
+						   </p>
+                           <div class="rules">
+                               <h5>Description</h5>
+                               <p class="card-text" th:text="${event.description}">Event Description</p>
+                           </div>
+                           <div class="register-btn mt-2" >
+                               <form th:action="@{/user/checkTeamSize}" method="post">
+                                   <input type="hidden" name="eventId" th:value="${event.id}" />
+                                   <input type="hidden" name="teamSize" th:value="${event.teamSize}" />
+                                   <button type="submit" class="btn btn-primary">Register</button>
+                               </form>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+            </div>
+        </div>
+		
+		<!-- Bootstrap JS and dependencies -->
+		   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+		   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+		   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   
+	</section>
+</body>
+</html>

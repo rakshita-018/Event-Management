@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/adminBase::Layout(~{::section})}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Event List</title>
+	<!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		  integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+<section th:fragment="Layout">
+	<div class="container-fluid mt-4">
+		<h1 class="mb-4 text-center text-md-start">Events by Category</h1>
+
+		<form action="#" th:action="@{/admin/eventList}" method="post" class="mb-4">
+			<div class="row">
+				<div class="col-md-6 mb-3">
+					<label for="category" class="form-label">Category:</label>
+					<select id="category" name="categoryId" class="form-control" required>
+						<option value="">Select Category</option>
+						<option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+					</select>
+				</div>
+				<div class="col-md-6 mb-3">
+					<label for="eventDate" class="form-label">Event Date:</label>
+					<input type="date" id="eventDate" name="eventDate" class="form-control" required>
+				</div>
+			</div>
+			<div class="d-flex justify-content-center justify-content-md-start">
+				<button type="submit" class="btn btn-primary">Show Events</button>
+			</div>
+		</form>
+
+		<h2 class="text-center text-md-start">Event List</h2>
+		<div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
+				<tr>
+					<th>Title</th>
+					<th>Amount</th>
+					<th>Team Size</th>
+					<th>Date</th>
+					<th>Start Time</th>
+					<th>End Time</th>
+					<th>Location</th>
+					<th>Delete</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr th:if="${#lists.isEmpty(events)}">
+					<td colspan="8" class="text-center">No events available.</td>
+				</tr>
+				<tr th:each="event : ${events}">
+					<td th:text="${event.title}">Event Title</td>
+					<td th:text="${event.amount}">Amount</td>
+					<td th:text="${event.teamSize}">Team Size</td>
+					<td th:each="eventDate : ${event.eventDates}" th:text="${eventDate.startDate}">Event Date</td>
+					<td th:each="eventDate : ${event.eventDates}" th:text="${eventDate.startTime}">Start Time</td>
+					<td th:each="eventDate : ${event.eventDates}" th:text="${eventDate.endTime}">End Time</td>
+					<td th:each="eventDate : ${event.eventDates}" th:text="${eventDate.location}">Location</td>
+					<td>
+						<form th:action="@{/admin/deleteEvent/{id}(id=${event.id})}" method="post"
+							  style="display:inline;">
+							<input type="hidden" name="_method" value="delete" />
+							<button type="submit" class="btn btn-warning btn-sm">Delete</button>
+						</form>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</section>
+</body>
+
+</html>
